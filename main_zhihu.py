@@ -119,6 +119,9 @@ class ZhihuParser:
         else:
             markdown_title = f"{markdown_title}_{author}"
 
+        year, month, day = date[:4], date[4:6], date[6:8]
+        markdown_title = f"{year}-{month}-{day}-{get_valid_filename(title)}"
+
         if content_element is not None:
             # 将 css 样式移除
             for style_tag in content_element.find_all("style"):
@@ -249,7 +252,7 @@ class ZhihuParser:
 
         # 转化为 Markdown 格式
         if content:
-            markdown = f"# {title}\n\n **Author:** [{author}]\n\n **Link:** [{target_link}]\n\n{content}"
+            markdown = f"---\nlayout: default\n---\n# {title}\n\n [*Link:*]({target_link})\n\n{content}"
         else:
             markdown = f"# {title}\n\n Content is empty."
 
@@ -497,7 +500,7 @@ class ZhihuParser:
 
 
 if __name__ == "__main__":
-    cookies = "your cookies here"
+    cookies = "_zap=7f47a7b6-f9bb-4107-9534-453a32fdb9c7; d_c0=f5QTzIU1LhuPTmoyH_3TFmoPt4Qpe5C_L08=|1759737506; __snaker__id=bPIYQ01ftgABq6ri; Hm_lvt_98beee57fd2ef70ccdd5ca52b9740c49=1759737507; z_c0=2|1:0|10:1762398941|4:z_c0|92:Mi4xTndRS0FBQUFBQUJfbEJQTWhUVXVHeVlBQUFCZ0FsVk5KbGY0YVFES0FickNtM0JfcjhFMTJTUDJ2cUJuU1pDR2JB|6691cce341ba64f377a48f491ead2c5611eb4a845cce365bed854489c24fb902; q_c1=29a008cade4e4ce9a6b0408a61a8dcdb|1759737541000|1759737541000; _xsrf=1e766b78-fef5-406f-9ec1-431a7ee2813c; JOID=UV0VA0_384l3g7pJPXVimV8BjGYlnLy8OvCOfUqJnv8t5PY4Uy5vbhyCuUw5igyhwrxMUiujgsLf5hw9-wo7p3E=; osd=UlETBk_0_49yg7lFO3BimlMHiWYmkLq5OvOCe0-JnfMr4fY7Xyhqbh-Ov0k5iQCnx7xPXi2mgsHT4Bk9-AY9onE=; DATE=1759737506861; cmci9xde=U2FsdGVkX1/TaESvUbK1wqrN2xmO2Sa4gB7eNHm86jstLeSwXamZl0NmkHIVkEjujCtYUlN3RmuOGhwbgdwwRw==; pmck9xge=U2FsdGVkX1+aj4VDvQ1A4aXnv023RlGY4U6q4lT/LyM=; assva6=U2FsdGVkX1/EpTM4oMUjPzYHqzO/Gx7Uh2EFCD7ou04=; assva5=U2FsdGVkX1+yrXVRKvoLFzPUarSML6EeFkIF16+KleqyDORJcQe8jVyTtI+lTAuX05G5wFE+lteFvvU+w6Dzcw==; crystal=U2FsdGVkX19PZY+Twr3o31BiONNOnRTP2Ws6akzYqgjm1P+AL9qhzSLLCv5XNpKuWcsxiYHf3QHiGSxhjgRnjYUlbVVSQuOnbASJlXGngE5pRGELfiKem3kI1XMehNHVG4isUiJQWGAVITcA7WjQdNslmtYitZWt3Axsnu7+0E+ToBDFMfz4ta1RSO7jVvqe+AbYH1IzKnv7e1stQhh/PLgU9Im6GOnJaBuQmhXK4o/0K0tPAAXr//u0X9kCtLcg; Hm_lpvt_98beee57fd2ef70ccdd5ca52b9740c49=1759747856; HMACCOUNT=BDE8DE38EC8BBAE4; vmce9xdq=U2FsdGVkX19m1xZuytp8+w/5X8po8N7lxLctWhVGmIew63e8jpd/jvVV+SBO60ZsDKaWsjLzrG9l9h0p5dh/Da95hyq8eNsa/IIoeDd3nNU+HcbNGUKJNZCOXoQM6q9Z48JB15VKZykuvDtdJKRBfa1hUGcLvcsCoaNb0HWB8JM=; SESSIONID=iFo74Gr19laRZ8U7yU1yFnPar3UBPrDj6xcTyu8WyeH; BEC=4589376d83fd47c9203681b16177ae43"
 
     # 回答
     # url = "https://www.zhihu.com/question/362131975/answer/2182682685"
@@ -509,7 +512,7 @@ if __name__ == "__main__":
     # url = "https://www.zhihu.com/zvideo/1493715983701831680"
 
     # 专栏
-    url = "https://www.zhihu.com/column/c_1796502192443777024"
+    url = "https://www.zhihu.com/column/c_115487842"
 
     # hexo_uploader=True 表示在公式前后加上 {% raw %} {% endraw %}，以便 hexo 正确解析
     parser = ZhihuParser(cookies)
